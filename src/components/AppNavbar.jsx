@@ -1,47 +1,50 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
+import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
+import Container from "react-bootstrap/Container";
+import { connect } from "react-redux";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
-}));
+import RegisterModal from "../components/auth/RegisterModal";
+import LoginModal from "../components/auth/LoginModal";
+import Logout from "../components/auth/Logout";
 
-const AppNavbar = () => {
-  const classes = useStyles();
+const AppNavbar = (props) => {
+  const { isAuthenticated, user } = props.auth;
 
+  // User is logged in
+  const authLinks = (
+    <>
+      <span className="navbar-text mr-3">
+        <strong>{user ? `Welcome ${user.username}` : ""}</strong>
+      </span>
+      <Logout />
+    </>
+  );
+  // User is not logged in
+  const guestLinks = (
+    <>
+      <RegisterModal />
+      <LoginModal />
+    </>
+  );
   return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            News
-          </Typography>
-          <Button color="inherit">Login</Button>
-        </Toolbar>
-      </AppBar>
+    <div>
+      <Navbar className="py-4" collapseOnSelect expand="lg" bg="dark" variant="dark">
+        <Container>
+          <Navbar.Brand href="/">Expense Tracker</Navbar.Brand>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="ml-auto">
+              {isAuthenticated ? authLinks : guestLinks}
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
     </div>
   );
-}
+};
+const mapStateToProps = (state) => ({
+  auth: state.authReducer,
+});
 
-export default AppNavbar;
+export default connect(mapStateToProps)(AppNavbar);
