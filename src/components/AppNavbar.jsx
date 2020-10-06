@@ -29,9 +29,19 @@ const AppNavbar = (props) => {
   );
   return (
     <div>
-      <Navbar className="py-4" collapseOnSelect expand="lg" bg="dark" variant="dark">
+      <Navbar
+        className="py-4"
+        collapseOnSelect
+        expand="lg"
+        bg="dark"
+        variant="dark"
+      >
         <Container>
           <Navbar.Brand href="/">Expense Tracker</Navbar.Brand>
+          <Nav className="mr-auto">
+            {/* // TODO: under the form there should be a table for expenses. In the All Expenses tab/ Graphs tab, show graphs. Use react router */}
+            {isAuthenticated ? <span className="navbar-text ml-2">All Expenses</span> : null}
+          </Nav>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="ml-auto">
