@@ -4,6 +4,8 @@ import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 
+import ExpenseTable from "../containers/ExpenseTable";
+
 const ExpenseForm = () => {
   return (
     <div>
@@ -44,9 +46,10 @@ const ExpenseForm = () => {
               </Form.Group>
             </Col>
           </Form.Row>
-          <Button variant="primary">Submit</Button>
+          <Button variant="primary" className="mb-4">Submit</Button>
         </Form>
       </Container>
+      <ExpenseTable />
     </div>
   );
 }

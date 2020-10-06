@@ -8,11 +8,9 @@ const SubHeader = () => {
     <div>
       <Container className="text-center my-3">
         <Link to="/expense-list">
-          <Button className="mr-1">
-            Expense List
-          </Button>
+          <Button className="mr-1 px-4 py-2">Expense List</Button>
         </Link>
-        <Button className="ml-1">Expense Graphs</Button>
+        <Button className="ml-1 px-4 py-2">Expense Graphs</Button>
       </Container>
     </div>
   );
