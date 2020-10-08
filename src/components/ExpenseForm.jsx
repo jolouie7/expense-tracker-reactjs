@@ -4,21 +4,23 @@ import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
+import { connect } from "react-redux";
 
 import ExpenseTable from "../containers/ExpenseTable";
 import errorActions from "../actions/errorActions";
+import { addExpense } from "../actions/expenseActions";
 
 const ExpenseForm = () => {
   const [description, setDescription] = useState("");
-  const [expenseAmount, setExpenseAmount] = useState(null);
-  const [category, setCategory] = useState("");
+  const [amount, setAmount] = useState(null);
+  const [category, setCategory] = useState("Housing");
   const [error, setError] = useState("")
 
   const handleChange = (e) => {
     if (e.target.name === "description") {
       setDescription(e.target.value)
     } else if (e.target.name === "amount") {
-      setExpenseAmount((e.target.value))
+      setAmount((e.target.value))
     } else {
       setCategory(e.target.value)
       console.log(e.target.value)
@@ -29,14 +31,19 @@ const ExpenseForm = () => {
     e.preventDefault();
 
     // Check all fields are filled in
-    if (description === "") {
-      setError("Please fill in all fields")
-      console.log("set error")
-    } else {
-      setError(null)
-    }
+    // if (description === "" && amount === null) {
+    //   setError("Please fill in all fields")
+    //   console.log("set error")
+    // } else {
+    //   setError(null)
+    // }
 
-    // Create a expense action to make a post request to server, to add a expense
+    const newExpense = {
+      description: description,
+      amount: parseInt(amount),
+      category: category
+    }
+    addExpense(newExpense);
   }
 
   // const handleClick = () => {
@@ -74,7 +81,7 @@ const ExpenseForm = () => {
                   type="number"
                   placeholder="Expense Amount"
                   name="amount"
-                  value={expenseAmount}
+                  value={amount}
                   onChange={handleChange}
                 />
               </Form.Group>
@@ -108,7 +115,7 @@ const ExpenseForm = () => {
               </Form.Group>
             </Col>
           </Form.Row>
-          <Button variant="primary" className="mb-4" >
+          <Button variant="primary" className="mb-4" type="submit">
             Submit
           </Button>
         </Form>
@@ -118,4 +125,8 @@ const ExpenseForm = () => {
   );
 };
 
-export default ExpenseForm;
+const mapDispatchToProps = (dispatch) => ({
+  addExpense: (expense) => dispatch(addExpense(expense)),
+});
+
+export default connect(null, mapDispatchToProps)(ExpenseForm);

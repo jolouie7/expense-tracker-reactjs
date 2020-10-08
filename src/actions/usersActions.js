@@ -7,6 +7,7 @@ import {
   GET_ALL_USERS_SUCCESS,
   GET_ALL_USERS_FAIL,
 } from "../constants/users";
+import { tokenConfig } from "./authActions";
 
 // Get All Users
 export const getAllUsers = () => {
@@ -35,23 +36,23 @@ export const getAllUsers = () => {
   };
 };
 
-// Setup config/headers and token
-export const tokenConfig = (getState) => {
-  // Get token from localstorage
-  const token = getState().authReducer.token;
+// // Setup config/headers and token
+// export const tokenConfig = (getState) => {
+//   // Get token from localstorage
+//   const token = getState().authReducer.token;
 
-  // Headers
-  const config = {
-    headers: {
-      "Content-type": "application/json",
-    },
-  };
+//   // Headers
+//   const config = {
+//     headers: {
+//       "Content-type": "application/json",
+//     },
+//   };
 
-  // If token, add to headers
-  if (token) {
-    config.headers["x-auth-token"] = token;
-    // config.headers["Authorization"] = "Bearer " + token;
-  }
+//   // If token, add to headers
+//   if (token) {
+//     config.headers["x-auth-token"] = token;
+//     // config.headers["Authorization"] = "Bearer " + token;
+//   }
 
-  return config;
-};
+//   return config;
+// };
