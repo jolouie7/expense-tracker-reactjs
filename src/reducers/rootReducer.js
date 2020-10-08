@@ -4,10 +4,12 @@ import { combineReducers } from "redux";
 import authReducer from "./authReducer";
 import errorReducer from "./errorReducer";
 import usersReducer from "./usersReducer";
+import expenseReducer from "./expenseReducer";
 
 export default combineReducers({
   // itemReducer,
   authReducer,
   errorReducer,
   usersReducer,
+  expenseReducer,
 });

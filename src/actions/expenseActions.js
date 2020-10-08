@@ -31,23 +31,29 @@ export const getExpenses = () => {
 
 // Create an expense
 export const addExpense = (expense) => {
-  console.log(expense)
+  // console.log(expense);
   return (dispatch, getState) => {
     axios
       // tokenConfig(getState), is attaching the token to the request in the header
-      .post(`${backendHost}/api/expenses`, expense, tokenConfig(getState))
+      // .post(`${backendHost}/api/expenses`, expense, tokenConfig(getState))
+      .post(
+        `http://localhost:5000/api/expenses`,
+        expense,
+        tokenConfig(getState)
+      )
       .then((res) =>
-        // dispatch({
-        //   type: ADD_EXPENSE,
-        //   payload: res.data,
-        // })
-        console.log(res)
+        dispatch({
+          type: ADD_EXPENSE,
+          payload: res.data,
+        })
+        // console.log(res)
       )
       .catch((error) => {
         dispatch(returnErrors(error.response.data, error.response.status));
       });
   };
 };
+
 
 // Update an expense
 export const updateExpense = (id, expense) => {
