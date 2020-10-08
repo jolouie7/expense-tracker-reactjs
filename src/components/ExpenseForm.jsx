@@ -3,35 +3,61 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+import Alert from "react-bootstrap/Alert";
 
 import ExpenseTable from "../containers/ExpenseTable";
+import errorActions from "../actions/errorActions";
 
 const ExpenseForm = () => {
   const [description, setDescription] = useState("");
-  const [expenseAmount, setExpenseAmount] = useState();
+  const [expenseAmount, setExpenseAmount] = useState(null);
   const [category, setCategory] = useState("");
+  const [error, setError] = useState("")
 
   const handleChange = (e) => {
     if (e.target.name === "description") {
       setDescription(e.target.value)
     } else if (e.target.name === "amount") {
-      setExpenseAmount(e.target.value)
+      setExpenseAmount((e.target.value))
     } else {
       setCategory(e.target.value)
+      console.log(e.target.value)
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // Check all fields are filled in
+    if (description === "") {
+      setError("Please fill in all fields")
+      console.log("set error")
+    } else {
+      setError(null)
+    }
+
     // Create a expense action to make a post request to server, to add a expense
   }
+
+  // const handleClick = () => {
+  //   // Check all fields are filled in
+  //   if (description !== "" || expenseAmount !== "" || category !== "") {
+  //     setError(null);
+  //   } else {
+  //     setError("Please fill in all fields");
+  //     console.log("set error");
+  //   }
+  // };
+
   return (
     <div>
       <Container>
+        {error !== "" ? (
+          <Alert variant="danger">Please fill in all fields</Alert>
+        ) : null}
         <Form onSubmit={handleSubmit}>
           <Form.Group>
-            <Form.Label>Description</Form.Label>
+            <Form.Label>Description*</Form.Label>
             <Form.Control
               as="textarea"
               rows="3"
@@ -43,7 +69,7 @@ const ExpenseForm = () => {
           <Form.Row>
             <Col>
               <Form.Group>
-                <Form.Label>Expense Amount</Form.Label>
+                <Form.Label>Expense Amount*</Form.Label>
                 <Form.Control
                   type="number"
                   placeholder="Expense Amount"
@@ -55,7 +81,7 @@ const ExpenseForm = () => {
             </Col>
             <Col>
               <Form.Group controlId="exampleForm.ControlSelect1">
-                <Form.Label>Category</Form.Label>
+                <Form.Label>Category*</Form.Label>
                 <Form.Control
                   as="select"
                   name="category"
@@ -82,7 +108,7 @@ const ExpenseForm = () => {
               </Form.Group>
             </Col>
           </Form.Row>
-          <Button variant="primary" className="mb-4">
+          <Button variant="primary" className="mb-4" >
             Submit
           </Button>
         </Form>
