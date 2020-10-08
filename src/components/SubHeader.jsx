@@ -4,7 +4,6 @@ import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 
 const SubHeader = () => {
-  console.log(window.location.href.includes("/expense-list"));
   return (
     <div>
       <Container className="text-center my-3">
