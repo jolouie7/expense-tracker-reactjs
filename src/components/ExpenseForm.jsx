@@ -12,7 +12,7 @@ import { addExpense } from "../actions/expenseActions";
 
 const ExpenseForm = ({addExpense}) => {
   const [description, setDescription] = useState("");
-  const [amount, setAmount] = useState(null);
+  const [amount, setAmount] = useState(0);
   const [category, setCategory] = useState("Housing");
   const [error, setError] = useState("")
 
@@ -45,7 +45,7 @@ const ExpenseForm = ({addExpense}) => {
     }
     addExpense(newExpense);
     setDescription("")
-    setAmount(null)
+    setAmount(0)
   }
 
   // const handleClick = () => {

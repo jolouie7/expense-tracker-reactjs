@@ -64,6 +64,7 @@ export const updateExpense = (id, expense) => {
       amount: expense.amount,
       category: expense.category,
     };
+    console.log(newExpense)
 
     axios
       .patch(`${backendHost}/api/expenses/${id}`, newExpense, tokenConfig(getState))

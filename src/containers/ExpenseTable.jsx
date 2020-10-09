@@ -5,10 +5,10 @@ import { connect } from "react-redux";
 import Button from "react-bootstrap/Button";
 
 import { deleteExpense } from "../actions/expenseActions";
+import UpdateModal from "../components/UpdateModal";
 
 const ExpenseTable = ({ expenses, deleteExpense, user }) => {
   const handleClick = (expense) => {
-    // console.log(expense._id);
     deleteExpense(expense._id);
   };
 
@@ -29,21 +29,28 @@ const ExpenseTable = ({ expenses, deleteExpense, user }) => {
             {expenses.length === 0 ? (
               <div>Loading...</div>
             ) : (
-              expenses.filter(expense => expense.user === user.id).map((expense, index) => (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>{expense.register_date.slice(0, 10)}</td>
-                  <td>${expense.amount}</td>
-                  <td>{expense.category || "none"}</td>
-                  <td>{expense.description}</td>
-                  <td>
-                    <Button className="mr-2" variant="danger" onClick={() => handleClick(expense)}>
-                      Delete
-                    </Button>
-                    <Button className="px-3" variant="info">Edit</Button>
-                  </td>
-                </tr>
-              ))
+              expenses
+                .filter((expense) => expense.user === user.id)
+                .map((expense, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{expense.register_date.slice(0, 10)}</td>
+                    <td>${expense.amount}</td>
+                    <td>{expense.category || "none"}</td>
+                    <td>{expense.description}</td>
+                    <td>
+                      <Button
+                        className="mr-2"
+                        variant="danger"
+                        onClick={() => handleClick(expense)}
+                      >
+                        Delete
+                      </Button>
+                      {/* <Button className="px-3" variant="info">Edit</Button> */}
+                      <UpdateModal expense={expense}/>
+                    </td>
+                  </tr>
+                ))
             )}
           </tbody>
         </Table>

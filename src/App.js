@@ -1,15 +1,17 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 // import './App.css';
 
 import ExpenseForm from "./components/ExpenseForm";
+import ExpenseGraph from "./components/ExpenseGraph";
+import LandingPage from "./components/LandingPage";
 import AppNavbar from "./components/AppNavbar";
 import SubHeader from "./components/SubHeader";
 import PrivateRoute from "./components/auth/ProtectedRoute";
-import {getExpenses} from "./actions/expenseActions";
+import { getExpenses } from "./actions/expenseActions";
 
-function App({ getExpenses, expenseList }) {
+function App({ getExpenses, expenseList, isAuthenticated }) {
   useEffect(() => {
     getExpenses();
   }, [getExpenses, expenseList]);
@@ -18,11 +20,20 @@ function App({ getExpenses, expenseList }) {
     <Router>
       <div>
         <AppNavbar />
-        <SubHeader />
+        {isAuthenticated ? <SubHeader /> : null}
 
         <Switch>
-          <PrivateRoute path="/expense-list" component={ExpenseForm} />
-          <Route exact path="/" component={() => <h1>Home Page</h1>} />
+          {isAuthenticated ? (
+            <div>
+              <PrivateRoute path="/expense-list" component={ExpenseForm} />
+              <PrivateRoute
+                path="/expense-graph"
+                component={ExpenseGraph}
+              />{" "}
+            </div>
+          ) : (
+            <Route exact path="/" component={LandingPage} />
+          )}
           <Route path="*" component={() => <h1>404 NOT FOUND</h1>} />
         </Switch>
       </div>
@@ -31,6 +42,7 @@ function App({ getExpenses, expenseList }) {
 }
 
 const mapStateToProps = (state) => ({
+  isAuthenticated: state.authReducer.isAuthenticated,
   isLoggedIn: state.authReducer.user,
   expenseList: state.expenseReducer.expenses,
 });
