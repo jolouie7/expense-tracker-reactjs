@@ -82,6 +82,7 @@ export const updateExpense = (id, expense) => {
 
 // Delete an expense
 export const deleteExpense = (id) => {
+  console.log(id)
   return (dispatch, getState) => {
     // tokenConfig(getState), is attaching the token to the request in the header
     axios

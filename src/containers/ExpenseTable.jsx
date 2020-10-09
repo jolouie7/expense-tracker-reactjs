@@ -2,9 +2,16 @@ import React from 'react';
 import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
 import { connect } from "react-redux";
+import Button from "react-bootstrap/Button";
 
-const ExpenseTable = ({expenses}) => {
-  console.log(expenses)
+import { deleteExpense } from "../actions/expenseActions";
+
+const ExpenseTable = ({ expenses, deleteExpense, user }) => {
+  const handleClick = (expense) => {
+    // console.log(expense._id);
+    deleteExpense(expense._id);
+  };
+
   return (
     <div>
       <Container>
@@ -19,23 +26,22 @@ const ExpenseTable = ({expenses}) => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>2020-09-30T23:00:49.252Z</td>
-              <td>$5</td>
-              <td>none</td>
-              <td>description here</td>
-            </tr>
             {expenses.length === 0 ? (
               <div>Loading...</div>
             ) : (
-              expenses.map((expense, index) => (
-                <tr>
+              expenses.filter(expense => expense.user === user.id).map((expense, index) => (
+                <tr key={index}>
                   <td>{index + 1}</td>
-                  <td>{expense.register_date.slice(0,10)}</td>
+                  <td>{expense.register_date.slice(0, 10)}</td>
                   <td>${expense.amount}</td>
                   <td>{expense.category || "none"}</td>
                   <td>{expense.description}</td>
+                  <td>
+                    <Button className="mr-2" variant="danger" onClick={() => handleClick(expense)}>
+                      Delete
+                    </Button>
+                    <Button className="px-3" variant="info">Edit</Button>
+                  </td>
                 </tr>
               ))
             )}
@@ -44,10 +50,15 @@ const ExpenseTable = ({expenses}) => {
       </Container>
     </div>
   );
-}
+};
 
 const mapStateToProps = (state) => ({
   expenses: state.expenseReducer.expenses,
+  user: state.authReducer.user,
 });
 
-export default connect(mapStateToProps)(ExpenseTable);
+const mapDispatchToProps = (dispatch) => ({
+  deleteExpense: (id) => dispatch(deleteExpense(id)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ExpenseTable);

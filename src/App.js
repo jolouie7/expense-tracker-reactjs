@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import { connect } from "react-redux";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 // import './App.css';
 
 import ExpenseForm from "./components/ExpenseForm";
@@ -9,10 +9,10 @@ import SubHeader from "./components/SubHeader";
 import PrivateRoute from "./components/auth/ProtectedRoute";
 import {getExpenses} from "./actions/expenseActions";
 
-function App({ getExpenses }) {
+function App({ getExpenses, expenseList }) {
   useEffect(() => {
     getExpenses();
-  }, [getExpenses])
+  }, [getExpenses, expenseList]);
 
   return (
     <Router>
@@ -32,10 +32,11 @@ function App({ getExpenses }) {
 
 const mapStateToProps = (state) => ({
   isLoggedIn: state.authReducer.user,
+  expenseList: state.expenseReducer.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getExpenses: () => dispatch(getExpenses()),
+  getExpenses: (id) => dispatch(getExpenses()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
