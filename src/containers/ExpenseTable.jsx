@@ -1,8 +1,10 @@
 import React from 'react';
 import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
+import { connect } from "react-redux";
 
-const ExpenseTable = () => {
+const ExpenseTable = ({expenses}) => {
+  console.log(expenses)
   return (
     <div>
       <Container>
@@ -10,7 +12,7 @@ const ExpenseTable = () => {
           <thead>
             <tr>
               <th>#</th>
-              <th>Date</th>
+              <th>Date (Year-Month-Day)</th>
               <th>Amount</th>
               <th>Category</th>
               <th>Expense Description</th>
@@ -19,21 +21,24 @@ const ExpenseTable = () => {
           <tbody>
             <tr>
               <td>1</td>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
+              <td>2020-09-30T23:00:49.252Z</td>
+              <td>$5</td>
+              <td>none</td>
+              <td>description here</td>
             </tr>
-            <tr>
-              <td>2</td>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td colSpan="2">Larry the Bird</td>
-              <td>@twitter</td>
-            </tr>
+            {expenses.length === 0 ? (
+              <div>Loading...</div>
+            ) : (
+              expenses.map((expense, index) => (
+                <tr>
+                  <td>{index + 1}</td>
+                  <td>{expense.register_date.slice(0,10)}</td>
+                  <td>${expense.amount}</td>
+                  <td>{expense.category || "none"}</td>
+                  <td>{expense.description}</td>
+                </tr>
+              ))
+            )}
           </tbody>
         </Table>
       </Container>
@@ -41,4 +46,8 @@ const ExpenseTable = () => {
   );
 }
 
-export default ExpenseTable
+const mapStateToProps = (state) => ({
+  expenses: state.expenseReducer.expenses,
+});
+
+export default connect(mapStateToProps)(ExpenseTable);

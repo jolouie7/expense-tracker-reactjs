@@ -10,7 +10,7 @@ import ExpenseTable from "../containers/ExpenseTable";
 import errorActions from "../actions/errorActions";
 import { addExpense } from "../actions/expenseActions";
 
-const ExpenseForm = (props) => {
+const ExpenseForm = ({addExpense}) => {
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState(null);
   const [category, setCategory] = useState("Housing");
@@ -43,7 +43,9 @@ const ExpenseForm = (props) => {
       amount: parseInt(amount),
       category: category
     }
-    props.addExpense(newExpense);
+    addExpense(newExpense);
+    setDescription("")
+    setAmount(null)
   }
 
   // const handleClick = () => {

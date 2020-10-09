@@ -13,10 +13,10 @@ import { returnErrors } from "./errorActions";
 
 // Get all expenses
 export const getExpenses = () => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     dispatch(setItemsLoading());
     axios
-      .get(`${backendHost}/api/expenses`)
+      .get(`${backendHost}/api/expenses`, tokenConfig(getState))
       .then((res) =>
         dispatch({
           type: GET_EXPENSES,

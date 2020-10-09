@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 // import './App.css';
@@ -7,8 +7,13 @@ import ExpenseForm from "./components/ExpenseForm";
 import AppNavbar from "./components/AppNavbar";
 import SubHeader from "./components/SubHeader";
 import PrivateRoute from "./components/auth/ProtectedRoute";
+import {getExpenses} from "./actions/expenseActions";
 
-function App() {
+function App({ getExpenses }) {
+  useEffect(() => {
+    getExpenses();
+  }, [getExpenses])
+
   return (
     <Router>
       <div>
@@ -30,8 +35,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  // loadUser: () => dispatch(loadUser()),
-  // getAllUsers: () => dispatch(getAllUsers()),
+  getExpenses: () => dispatch(getExpenses()),
 });
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
