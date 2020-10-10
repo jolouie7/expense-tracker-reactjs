@@ -5,6 +5,7 @@ import authReducer from "./authReducer";
 import errorReducer from "./errorReducer";
 import usersReducer from "./usersReducer";
 import expenseReducer from "./expenseReducer";
+import dateReducer from "./dateReducer";
 
 export default combineReducers({
   // itemReducer,
@@ -12,4 +13,5 @@ export default combineReducers({
   errorReducer,
   usersReducer,
   expenseReducer,
+  dateReducer,
 });

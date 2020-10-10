@@ -6,7 +6,7 @@ const initialState = {
   id: null,
 };
 
-const itemReducer = (state = initialState, action) => {
+const errorReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_ERRORS:
       return {
@@ -27,4 +27,4 @@ const itemReducer = (state = initialState, action) => {
   }
 };
 
-export default itemReducer;
+export default errorReducer;

@@ -10,6 +10,7 @@ import ExpenseTable from "../containers/ExpenseTable";
 import errorActions from "../actions/errorActions";
 import { addExpense } from "../actions/expenseActions";
 
+
 const ExpenseForm = ({addExpense}) => {
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState(0);

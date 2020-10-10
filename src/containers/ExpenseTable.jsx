@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
 import { connect } from "react-redux";
@@ -6,8 +6,11 @@ import Button from "react-bootstrap/Button";
 
 import { deleteExpense } from "../actions/expenseActions";
 import UpdateModal from "../components/UpdateModal";
+import MonthPicker from "../components/MonthPicker";
 
 const ExpenseTable = ({ expenses, deleteExpense, user }) => {
+  // const [startDate, setStartDate] = useState(new Date());
+
   const handleClick = (expense) => {
     deleteExpense(expense._id);
   };
@@ -15,6 +18,7 @@ const ExpenseTable = ({ expenses, deleteExpense, user }) => {
   return (
     <div>
       <Container>
+        <MonthPicker />
         <Table striped bordered hover>
           <thead>
             <tr>
@@ -47,7 +51,7 @@ const ExpenseTable = ({ expenses, deleteExpense, user }) => {
                         Delete
                       </Button>
                       {/* <Button className="px-3" variant="info">Edit</Button> */}
-                      <UpdateModal expense={expense}/>
+                      <UpdateModal expense={expense} />
                     </td>
                   </tr>
                 ))

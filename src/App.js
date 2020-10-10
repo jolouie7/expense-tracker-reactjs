@@ -14,7 +14,8 @@ import { getExpenses } from "./actions/expenseActions";
 function App({ getExpenses, expenseList, isAuthenticated }) {
   useEffect(() => {
     getExpenses();
-  }, [getExpenses, expenseList]);
+  // }, [getExpenses, expenseList]);
+  }, []);
 
   return (
     <Router>
