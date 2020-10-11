@@ -56,6 +56,18 @@ function LoginModal({ isAuthenticated, error, login, clearErrors }) {
     login(user);
   };
 
+  const handleTestUser = (e) => {
+    e.preventDefault();
+
+    const user = {
+      username: "testuser",
+      password: "testpassword",
+    };
+
+    // Attempt to login
+    login(user);
+  }
+
   const handleChangeUsername = (e) => setUsername(e.target.value);
   const handleChangePassword = (e) => setPassword(e.target.value);
 
@@ -68,6 +80,9 @@ function LoginModal({ isAuthenticated, error, login, clearErrors }) {
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Login</Modal.Title>
+          <Button className="ml-5" variant="dark" onClick={handleTestUser}>
+            Login as Test User
+          </Button>
         </Modal.Header>
         <Modal.Body>
           {msg ? <Alert variant="danger">{msg}</Alert> : null}
