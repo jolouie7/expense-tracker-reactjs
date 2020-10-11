@@ -2,8 +2,7 @@
 
 A personal expense tracker that tracks your monthly personal expenses
 
-#### [Expense Tracker Backend Link here](https://github.com/jolouie7/
-expense-tracker-mern)
+#### [Expense Tracker Backend Link here](https://github.com/jolouie7/expense-tracker-mern)
 
 #### [Live Site](https://my-expense-tracker-78b780.netlify.app/)
 
