@@ -28,26 +28,26 @@ const ExpenseForm = ({addExpense}) => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleFormSubmit = (e) => {
     e.preventDefault();
 
     // Check all fields are filled in
-    // if (description === "" && amount === null) {
-    //   setError("Please fill in all fields")
-    //   console.log("set error")
-    // } else {
-    //   setError(null)
-    // }
+    if (description === "" || amount === 0) {
+      setError("Please fill in all fields")
+      console.log("set error")
+    } else {
+      setError("")
+    }
 
     const newExpense = {
       description: description,
       amount: parseInt(amount),
-      category: category
-    }
+      category: category,
+    };
     addExpense(newExpense);
-    setDescription("")
-    setAmount(0)
-  }
+    setDescription("");
+    setAmount(0);
+  };
 
   // const handleClick = () => {
   //   // Check all fields are filled in
@@ -65,7 +65,7 @@ const ExpenseForm = ({addExpense}) => {
         {error !== "" ? (
           <Alert variant="danger">Please fill in all fields</Alert>
         ) : null}
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleFormSubmit}>
           <Form.Group>
             <Form.Label>Description*</Form.Label>
             <Form.Control

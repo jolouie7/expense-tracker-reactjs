@@ -7,7 +7,7 @@ import { logout } from "../../actions/authActions";
 const Logout = ({ logout }) => {
   return (
     <>
-      <Nav.Link onClick={logout} href="#">
+      <Nav.Link onClick={logout} href="/">
         Logout
       </Nav.Link>
     </>
