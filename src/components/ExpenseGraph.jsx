@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from "react-redux";
 import { Pie } from 'react-chartjs-2';
 
-const ExpenseGraph = ({ expenses, user }) => {
+const ExpenseGraph = ({ expenses, user, month }) => {
   const expenseObj = {
     "Housing": 0,
     "Transportation": 0,
@@ -34,7 +34,11 @@ const ExpenseGraph = ({ expenses, user }) => {
   if (expenses.length === 0) {
     return <div>Loading...</div>
   } else {
-    const filteredExpenses = expenses.filter(expense => expense.user === user.id)
+    const filteredExpenses = expenses.filter(
+      (expense) =>
+        expense.user === user.id &&
+        parseInt(expense.register_date.slice(5, 7)) === month
+    );
     // Add to expenseObj
     for (let filteredExpense of filteredExpenses) {
       expenseObj[filteredExpense.category] += filteredExpense.amount
@@ -69,6 +73,7 @@ const ExpenseGraph = ({ expenses, user }) => {
 const mapStateToProps = (state) => ({
   expenses: state.expenseReducer.expenses,
   user: state.authReducer.user,
+  month: state.dateReducer.month
 });
 
 export default connect(mapStateToProps)(ExpenseGraph)

@@ -98,6 +98,7 @@ export const login = ({ username, password }) => (dispatch) => {
 
 // Logout User
 export const logout = () => {
+  window.location.href = `/`;
   return {
     type: LOGOUT_SUCCESS,
   };

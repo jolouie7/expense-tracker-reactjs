@@ -8,7 +8,7 @@ import { deleteExpense } from "../actions/expenseActions";
 import UpdateModal from "../components/UpdateModal";
 import MonthPicker from "../components/MonthPicker";
 
-const ExpenseTable = ({ expenses, deleteExpense, user }) => {
+const ExpenseTable = ({ expenses, deleteExpense, user, month }) => {
   // const [startDate, setStartDate] = useState(new Date());
 
   const handleClick = (expense) => {
@@ -34,7 +34,7 @@ const ExpenseTable = ({ expenses, deleteExpense, user }) => {
               <div>Loading...</div>
             ) : (
               expenses
-                .filter((expense) => expense.user === user.id)
+                .filter((expense) => expense.user === user.id && parseInt(expense.register_date.slice(5, 7)) === month)
                 .map((expense, index) => (
                   <tr key={index}>
                     <td>{index + 1}</td>
@@ -66,6 +66,7 @@ const ExpenseTable = ({ expenses, deleteExpense, user }) => {
 const mapStateToProps = (state) => ({
   expenses: state.expenseReducer.expenses,
   user: state.authReducer.user,
+  month: state.dateReducer.month
 });
 
 const mapDispatchToProps = (dispatch) => ({
