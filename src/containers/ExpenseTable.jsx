@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
 import { connect } from "react-redux";
 import Button from "react-bootstrap/Button";
 
-import { deleteExpense } from "../actions/expenseActions";
+import { deleteExpense, getExpenses } from "../actions/expenseActions";
 import UpdateModal from "../components/UpdateModal";
 import MonthPicker from "../components/MonthPicker";
 
@@ -13,6 +13,7 @@ const ExpenseTable = ({ expenses, deleteExpense, user, month }) => {
 
   const handleClick = (expense) => {
     deleteExpense(expense._id);
+    window.location.reload();
   };
 
   return (
@@ -71,6 +72,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   deleteExpense: (id) => dispatch(deleteExpense(id)),
+  getExpenses: (id) => dispatch(getExpenses()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpenseTable);

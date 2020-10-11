@@ -45,6 +45,7 @@ function UpdateModal({expense, updateExpense}) {
     };
     updateExpense(expense._id, newExpense);
     handleClose();
+    window.location.reload();
   };
 
   return (

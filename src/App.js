@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { connect } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { connect, shallowEqual, useSelector } from "react-redux";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 // import './App.css';
 
@@ -12,10 +12,11 @@ import PrivateRoute from "./components/auth/ProtectedRoute";
 import { getExpenses } from "./actions/expenseActions";
 
 function App({ getExpenses, expenseList, isAuthenticated }) {
+  // const [expenses, setExpenses] = useState(expenseList)
   useEffect(() => {
     getExpenses();
     // }, [getExpenses, expenseList]);
-  }, [expenseList]);
+  }, []);
 
   return (
     <Router>
