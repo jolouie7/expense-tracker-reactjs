@@ -31,22 +31,17 @@ export const getExpenses = () => {
 
 // Create an expense
 export const addExpense = (expense) => {
-  // console.log(expense);
   return (dispatch, getState) => {
     axios
       // tokenConfig(getState), is attaching the token to the request in the header
       // .post(`${backendHost}/api/expenses`, expense, tokenConfig(getState))
-      .post(
-        `http://localhost:5000/api/expenses`,
-        expense,
-        tokenConfig(getState)
-      )
-      .then((res) =>
-        dispatch({
-          type: ADD_EXPENSE,
-          payload: res.data,
-        })
-        // console.log(res)
+      .post(`${backendHost}/api/expenses`, expense, tokenConfig(getState))
+      .then(
+        (res) =>
+          dispatch({
+            type: ADD_EXPENSE,
+            payload: res.data,
+          })
       )
       .catch((error) => {
         dispatch(returnErrors(error.response.data, error.response.status));
@@ -64,7 +59,6 @@ export const updateExpense = (id, expense) => {
       amount: expense.amount,
       category: expense.category,
     };
-    console.log(newExpense)
 
     axios
       .patch(`${backendHost}/api/expenses/${id}`, newExpense, tokenConfig(getState))
@@ -83,7 +77,6 @@ export const updateExpense = (id, expense) => {
 
 // Delete an expense
 export const deleteExpense = (id) => {
-  console.log(id)
   return (dispatch, getState) => {
     // tokenConfig(getState), is attaching the token to the request in the header
     axios

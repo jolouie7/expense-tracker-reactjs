@@ -24,7 +24,6 @@ const ExpenseForm = ({addExpense}) => {
       setAmount((e.target.value))
     } else {
       setCategory(e.target.value)
-      console.log(e.target.value)
     }
   };
 
@@ -34,7 +33,6 @@ const ExpenseForm = ({addExpense}) => {
     // Check all fields are filled in
     if (description === "" || amount === 0) {
       setError("Please fill in all fields")
-      console.log("set error")
     } else {
       setError("")
     }
@@ -48,16 +46,6 @@ const ExpenseForm = ({addExpense}) => {
     setDescription("");
     setAmount(0);
   };
-
-  // const handleClick = () => {
-  //   // Check all fields are filled in
-  //   if (description !== "" || expenseAmount !== "" || category !== "") {
-  //     setError(null);
-  //   } else {
-  //     setError("Please fill in all fields");
-  //     console.log("set error");
-  //   }
-  // };
 
   return (
     <div>

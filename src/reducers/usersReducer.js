@@ -13,7 +13,6 @@ const initialState = {
 const usersReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_ALL_USERS_LOADING:
-      console.log("in reducer!");
       return {
         ...state,
         isLoading: true,

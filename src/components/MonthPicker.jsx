@@ -7,12 +7,8 @@ import {loadDate} from "../actions/dateActions"
 
 const MonthPicker = ({loadDate}) => {
   const [startDate, setStartDate] = useState(new Date());
-  // console.log(startDate.getMonth() + 1)
-  // console.log(startDate.getFullYear())
   const handleChange = async (date) => {
     setStartDate(date);
-    // console.log(startDate.getMonth() + 1)
-    // console.log(startDate.getFullYear())
     loadDate(date.getMonth() + 1, date.getFullYear());
   }
   return (

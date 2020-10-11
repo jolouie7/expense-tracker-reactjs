@@ -32,7 +32,6 @@ function UpdateModal({expense, updateExpense}) {
       setAmount(e.target.value);
     } else {
       setCategory(e.target.value);
-      console.log(e.target.value);
     }
   };
 
@@ -44,7 +43,6 @@ function UpdateModal({expense, updateExpense}) {
       amount: parseInt(amount),
       category: category,
     };
-    // console.log(newExpense)
     updateExpense(expense._id, newExpense);
     handleClose();
   };
@@ -61,9 +59,6 @@ function UpdateModal({expense, updateExpense}) {
         </Modal.Header>
         <Modal.Body>
           <Container>
-            {/* {error !== "" ? (
-              <Alert variant="danger">Please fill in all fields</Alert>
-            ) : null} */}
             <Form onSubmit={handleSubmit}>
               <Form.Group>
                 <Form.Label>Description*</Form.Label>
